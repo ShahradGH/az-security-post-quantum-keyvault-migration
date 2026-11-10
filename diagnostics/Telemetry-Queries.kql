@@ -1,0 +1,7 @@
+// Audit Application Gateway & Key Vault logs for legacy TLS 1.2 handshakes and key rotation compliance
+AzureDiagnostics
+| where ResourceProvider in ("MICROSOFT.NETWORK", "MICROSOFT.KEYVAULT")
+| where TimeGenerated > ago(7d)
+| where sslProtocol_s in ("TLSv1", "TLSv1_1", "TLSv1_2") or OperationName == "KeyRotate"
+| summarize HandshakeOrRotateCount = count() by Resource, sslProtocol_s, sslCipher_s, OperationName
+| order by HandshakeOrRotateCount desc
