@@ -1,0 +1,20 @@
+{
+  "mode": "Indexed",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "equals": "Microsoft.KeyVault/vaults/keys"
+        },
+        {
+          "field": "Microsoft.KeyVault/vaults/keys/keySize",
+          "less": 3072
+        }
+      ]
+    },
+    "then": {
+      "effect": "deny"
+    }
+  }
+}

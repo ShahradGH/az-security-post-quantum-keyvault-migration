@@ -1,0 +1,12 @@
+{
+  "mode": "Indexed",
+  "policyRule": {
+    "if": {
+      "field": "Microsoft.Web/sites/config/minTlsVersion",
+      "notEquals": "1.3"
+    },
+    "then": {
+      "effect": "deny"
+    }
+  }
+}

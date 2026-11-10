@@ -1,0 +1,9 @@
+name: Cryptographic Agility Audit
+on: [push, pull_request]
+jobs:
+  pester:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        run: Invoke-Pester -Path ./tests/PostQuantumMigration.Tests.ps1 -Output Detailed

@@ -1,0 +1,9 @@
+[
+  {
+    "assetId": "kv-payments-prod/key- legacy-2048",
+    "algorithm": "RSA-2048",
+    "tlsVersion": "1.2",
+    "retentionYears": 15,
+    "hndlRisk": "CRITICAL_HARVEST_NOW_DECRYPT_LATER"
+  }
+]

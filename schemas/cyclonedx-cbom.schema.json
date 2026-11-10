@@ -1,0 +1,11 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "name": "X25519MLKEM768",
+      "nistStandard": "FIPS-203"
+    }
+  ]
+}
