@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "standard": "CycloneDX-CBOM-1.6",
+  "domain": "azure-post-quantum-keyvault-migration",
+  "abstentionThreshold": 0.75,
+  "moscaTheorem": {
+    "description": "HNDL Risk Triggered when (MigrationTimeYears + DataRetentionYears) > QuantumThreatHorizonYears",
+    "defaultQuantumThreatHorizonYears": 10
+  },
+  "foundryToolSchema": {
+    "type": "function",
+    "function": {
+      "name": "prioritise_cbom_hndl_risk",
+      "description": "Scores Harvest-Now-Decrypt-Later (HNDL) cryptographic exposure across CycloneDX CBOM assets using Mosca's Theorem, public internet exposure, and Azure Key Vault / SymCrypt readiness.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "assetId": { "type": "string" },
+          "algorithm": { "type": "string" },
+          "tlsVersion": { "type": "string" },
+          "retentionYears": { "type": "integer", "minimum": 0 },
+          "publiclyExposed": { "type": "boolean" }
+        },
+        "required": ["assetId", "algorithm", "tlsVersion", "retentionYears", "publiclyExposed"]
+      }
+    }
+  },
+  "weights": {
+    "quantumVulnerableAlgorithm": 0.40,
+    "longRetentionHorizon": 0.30,
+    "publicInternetExposure": 0.20,
+    "legacyTlsBelow13": 0.10
+  },
+  "waveDefinitions": [
+    { "wave": "WAVE_1_IMMEDIATE_30D", "minScore": 0.80, "action": "Enforce TLS 1.3 + X25519MLKEM768 at Edge Proxy & Rotate to RSA-HSM-4096 / P90D" },
+    { "wave": "WAVE_2_Q1_90D", "minScore": 0.55, "action": "Upgrade Key Vault rotationPolicy to P90D and stage SymCrypt hybrid TLS testing" },
+    { "wave": "WAVE_3_BASELINE_180D", "minScore": 0.00, "action": "Monitor CBOM inventory; maintain crypto-agility readiness" }
+  ]
+}
